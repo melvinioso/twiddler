@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="jquery.js"></script>
+    <script src="data_generator.js"></script>
+    <!-- import the moment.js library for time ago functionality -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <!-- Link to stylesheet -->
+    <link href="styles.css" type="text/css" rel="stylesheet">
+  </head>
+  <body>
+    <!-- Implement div structure -->
+    <div class="container">
+      <div id="header">
+        <h1 class="logo">Twiddler</h1>
+        <button class="button" type="button">Click for new Tweets!</button>
+        <button class="home" type="button">Click to go back home</button>
+      </div>
+      <div class="timeline">
+        <section class="tweets"></section>
+      </div>
+    </div>
+    <script>
+
+      $(document).ready(function(){
+        var $body = $('.timeline');
+
+        // hide the return home button when not in history mode
+        $('.home').hide();
+
+        var index = streams.home.length - 1;
+        while(index >= 0){
+          // Create the local variables
+          var tweet = streams.home[index];
+          var $tweet = $('<div class=tweet></div>');
+          var $user = $('<p class=user></p>');
+          var $message = $('<p class=message></p>');
+          var $timestamp = $('<p class=timestamp></p>');
+
+          // using prependTo to sort the tweets in chronological order
+          $tweet.prependTo('.tweets');
+          $user.addClass(tweet.user);
+          // add an attribute called user and set to user
+          $user.attr('user', tweet.user);
+          $user.text('@' + tweet.user + ': ').appendTo($tweet);
+          $message.text(tweet.message + '\n').appendTo($tweet);
+          // using moment.js to display human-friendly time ago
+          $timestamp.text("\n" + moment(tweet.created_at).fromNow()).appendTo($tweet);
+
+          index -= 1;
+        };
+
+        // generate a single new tweet and post it
+        $('.button').click(function () {
+          generateRandomTweet();
+
+          var tweet = streams.home.pop();
+          var $tweet = $('<div class=tweet style="display: none;"></div>');
+          var $user = $('<p class=user></p>');
+          var $message = $('<p class=message></p>');
+          var $timestamp = $('<p class=timestamp></p>');
+
+          $tweet.prependTo('.tweets').fadeIn(500, 'swing');
+          $user.addClass(tweet.user);
+          $user.attr('user', tweet.user);
+          $user.text('@' + tweet.user + ': ').appendTo($tweet);
+          $message.text(tweet.message + '\n').appendTo($tweet);
+          // using moment.js to display human-friendly time ago
+          $timestamp.text("\n" + moment(tweet.created_at).fromNow()).appendTo($tweet);
+        });
+
+        // hover effects for username
+        $('.timeline').on('mouseover', '.tweet .user', function() {
+          $(this).addClass('mouseover');
+        });
+
+        $('.timeline').on('mouseout', '.tweet .user', function() {
+          $(this).removeClass('mouseover');
+        });
+
+        // user timeline
+        $('.timeline').on('click', '.tweet .user', function() {
+
+          // store clicked user in a variable
+          var user = $(this).attr('user');
+
+          // prevents the H1 element from being shown repeatedly when clicking a username in the history view
+          $('.history').remove();
+          var $userHistory = $('<h1 class=history>'+ user +'\'s History</h1>');
+          $userHistory.prependTo('.tweets');
+
+          // disable new tweet button and enable go home button
+          $('.button').hide();
+          $('.home').show();
+
+          // filter and show only the tweets that are by the user.
+          $('.tweet').not("div:contains('" + user + "')").hide();
+          $('.tweet').filter("div:contains('" + user + "')").show();
+          // disable hover effects for usernames when in history mode
+          $('.timeline').on('mouseover', '.tweet .user', function() {
+            $(this).removeClass('mouseover');
+          });
+        });
+
+        // button to return home
+        $('.home').click(function () {
+          $('.history').hide();
+          $('.tweet').css('display', 'block');
+          $('.home').hide();
+          $('.button').show();
+          $('.button').prop('enabled', true);
+          // re-enable hover effects when returning to the main tweet feed
+          $('.timeline').on('mouseover', '.tweet .user', function() {
+            $(this).addClass('mouseover');
+          });
+        });
+      });
+
+    </script>
+  </body>
+</html>

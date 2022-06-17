@@ -1,0 +1,130 @@
+body {
+  background-color: #a9a9a9;
+}
+
+#header {
+  background-color: black;
+  height: 60px;
+  padding: 20px;
+  text-align: justify;
+}
+
+#header::after {
+  content: '';
+  display: inline-block;
+  width: 100%;
+}
+
+.logo {
+  display: inline-block;
+  font-family: fantasy;
+  color: white;
+  vertical-align: middle;
+  height: 100%;
+  margin: 0;
+}
+
+.logo::before {
+  content: '';
+  display: inline-block;
+  vertical-align: middle;
+  height: 100%;
+}
+
+.button {
+  padding: 10px 20px;
+  font-size: 20px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: #4CAF50;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 9px #999;
+}
+
+.button:hover {
+  background-color: #3e8e41;
+}
+
+.button:active {
+  background-color: #3e8e41;
+  box-shadow: 0 5px rgb(96, 94, 94);
+  transform: translateY(4px);
+}
+
+.tweet {
+  padding: 8px;
+  margin: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  background: slategray;
+  color: #FFF;
+  border-radius: 8px;
+  box-shadow: -2px 2px 5px 0px black;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  text-align: left;
+  width: fit-content;
+}
+
+.user {
+  display: inline;
+  color: skyblue;
+  font-weight: bold;
+  font-family: fantasy;
+  font-size: 19px;
+}
+
+.message {
+  display: inline;
+  font-size: 15px;
+}
+
+.timestamp {
+  display: block;
+  margin: 0;
+  font-size: 11px;
+  font-style: italic;
+}
+
+.mouseover {
+  color: rgb(25, 25, 176);
+  cursor: pointer;
+}
+
+.history {
+  font-family: fantasy;
+  font-size: 24px;
+  text-align: center;
+}
+
+.home {
+  padding: 10px 20px;
+  font-size: 20px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: #4CAF50;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 9px #999;
+}
+
+.home:hover {
+  background-color: #3e8e41;
+}
+
+.home:active {
+  background-color: #3e8e41;
+  box-shadow: 0 5px rgb(96, 94, 94);
+  transform: translateY(4px);
+}
+
+.timeline {
+  margin-top: 20px;
+}
